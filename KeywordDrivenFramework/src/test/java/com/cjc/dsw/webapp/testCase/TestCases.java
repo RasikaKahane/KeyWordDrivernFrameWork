@@ -2,6 +2,7 @@ package com.cjc.dsw.webapp.testCase;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +19,12 @@ import com.cjc.dsw.webapp.pageClass.AddBook;
 import com.cjc.dsw.webapp.pageClass.AddPaymentmethod;
 import com.cjc.dsw.webapp.pageClass.AddShippingAddress;
 import com.cjc.dsw.webapp.pageClass.ConfirmOrderPage;
+import com.cjc.dsw.webapp.pageClass.PaymentInformation;
 import com.cjc.dsw.webapp.pageClass.RegisterLoginPage;
 import com.cjc.dsw.webapp.pageClass.ShoppingCart;
 import com.cjc.dsw.webapp.pageClass.SucessfullyConfirmOrderPage;
 import com.cjc.dsw.webapp.utility.comman;
-import com.cjc.dws.webapp.pages.AddPaymentInformation;
-import com.cjc.dws.webapp.utility.Common;
+
 
 public class TestCases {
 	Logger log=Logger.getLogger(TestCases.class.getName());
@@ -31,7 +32,7 @@ public class TestCases {
 	@BeforeSuite
 	public void openBrowser()
 	{
-		System.setProperty("webdriver.chrome.driver","C:\\Users\\Rasika\\eclipse-workspace1\\KeywordDrivenFramework\\src\\test\\resources\\Browser\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","src/test/resources/Browser/chromedriver.exe");
 		 driver=new ChromeDriver();
 		 log.info("Open Browser");
 	}
@@ -45,6 +46,7 @@ public class TestCases {
 	public void maximize()
 	{
 		log.info("Maximize Window");
+		driver.manage().window().maximize();
 	}
 	@BeforeMethod
 	public void DBConnection()
@@ -52,28 +54,32 @@ public class TestCases {
 		log.info("Connect Database");
 	}
     @Test (priority=1)
-    public void Registration(String fn, String ln, String email, String pw, String cpw)
+    public void Registration() throws IOException
 	{
+    	
+    	
     	log.info("Registration Start");
     	RegisterLoginPage RegLogPg= PageFactory.initElements(driver, RegisterLoginPage.class);
-    	RegLogPg.Register(ln, email, pw, cpw, cpw);
+    	comman.getExcel();
+    	
+    	RegLogPg.Register(comman.fn,comman.ln, comman.email, comman.pw, comman.cpw);
     	log.warn("successfully done");
 	}
     @Test(priority=2)
 	public void Book()
 	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		log.info("Add Books Product");
 		AddBook book = PageFactory.initElements(driver, AddBook.class);
 		book.addBook();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		
 		
 	}
 	@Test(priority=3)
 	public void ShoppingCartP() throws InterruptedException
 	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		log.info("ShoppingCart");
 
 		ShoppingCart shopCart = PageFactory.initElements(driver, ShoppingCart.class);
@@ -122,10 +128,10 @@ public class TestCases {
 		sa.assertAll();
 		Assert.assertEquals("You will pay by COD", Ptext);
 		System.out.println(Ptext);*/
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		AddPaymentInformation PayInfo = PageFactory.initElements(driver, AddPaymentInformation.class);
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		PaymentInformation PayInfo = PageFactory.initElements(driver, PaymentInformation.class);
 		PayInfo.PaymentInfo();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		log.info("Paymentinformation");
 	}
 	@Test(priority=8)

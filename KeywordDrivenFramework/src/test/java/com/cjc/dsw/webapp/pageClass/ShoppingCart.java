@@ -1,6 +1,7 @@
 package com.cjc.dsw.webapp.pageClass;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,14 +37,14 @@ public class ShoppingCart {
 	{
 		//Thread.sleep(3000);
 		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-		WebDriverWait wait =new WebDriverWait(driver, Duration.ofSeconds(40));
+		WebDriverWait wait =new WebDriverWait(driver, 30);
 
 	    wait.until(ExpectedConditions.elementToBeClickable(ClkCartlink));
 		
 	    ClkCartlink.click();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		Clktermsofservice.click();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		ClkCheckout.click();
 	}
 

@@ -1,6 +1,7 @@
 package com.cjc.dsw.webapp.pageClass;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ WebDriver driver;
 
   public void addBook()
   {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+	driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 	ClkOnBooks.click();
 	ClkAddBook.click();
   }

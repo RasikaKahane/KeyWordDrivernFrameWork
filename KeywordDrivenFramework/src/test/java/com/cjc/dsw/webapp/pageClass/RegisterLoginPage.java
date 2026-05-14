@@ -1,6 +1,7 @@
 package com.cjc.dsw.webapp.pageClass;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -69,7 +70,7 @@ public class RegisterLoginPage {
 		PW.sendKeys(PassW);
 		CPW.sendKeys(ConfPW);
 		ClkbtnReg.click();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		BtnContinue.click();
 	}
 	
